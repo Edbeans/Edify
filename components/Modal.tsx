@@ -74,7 +74,7 @@ const Modal: React.FC<ModalProps> = ({
                         </div>
                         <Dialog.Close asChild>
                             <button>
-                                <IoMdClose />  
+                                <IoMdClose />       
                             </button>
                         </Dialog.Close>
                 </Dialog.Content>

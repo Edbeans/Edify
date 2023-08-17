@@ -1,5 +1,6 @@
 "use client"; 
 
+import { FaUserAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
@@ -9,6 +10,7 @@ import Button from "./Button";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
+import { toast } from "react-hot-toast";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -32,7 +34,9 @@ const Header: React.FC<HeaderProps> = ({
         router.refresh();
 
         if (error) {
-            console.log(error);
+            toast.error(error.message);
+        } else {
+            toast.success('Logged out!');
         }
     }
 
@@ -62,7 +66,21 @@ const Header: React.FC<HeaderProps> = ({
                 </div>
                 <div className='flex justify-between items-center gap-x-4'>
                     {user ? (
-                        <div>Logged in</div>
+                        <div className='flex gap-x-4 items-center'>
+                            <Button
+                                onClick={handleLogout}
+                                className='bg-white px-6 py-2'
+                            >
+                                Logout
+                            </Button>
+                            <Button
+                                onClick={() => router.push('/account')}
+                                className='bg-white'
+                            >
+                                <FaUserAlt />
+                            </Button>
+
+                        </div>
                     ) : (
                         <>
                             <div>
